@@ -11,10 +11,10 @@ export type Event = {
 }
 
 export type EventCreate = Omit<Event, 'id'>
-export const fetchEvents = () => axios.get<Event[]>(`${API_URL}/events/`)
-export const createEvent = (data: EventCreate) => axios.post(`${API_URL}/events/`, data)
+export const fetchEvents = () => axios.get<Event[]>(`${API_URL}events/`)
+export const createEvent = (data: EventCreate) => axios.post(`${API_URL}events/`, data)
 export const importEvents = (file: File) => {
   const formData = new FormData()
   formData.append('file', file)
-  return axios.post(`${API_URL}/events/import`, formData)
+  return axios.post(`${API_URL}events/import`, formData)
 }
