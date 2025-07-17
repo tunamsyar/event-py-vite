@@ -70,7 +70,7 @@ export function Table<T>({ data, columns }: Props<T>) {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((row, i) => (
+        {Array.isArray(sortedData) && sortedData.map((row, i) => (
           <tr key={i} className="hover:bg-gray-50">
             {columns.map((col) => (
               <td key={String(col.accessor)} className="p-2 border-b">
