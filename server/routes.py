@@ -27,17 +27,34 @@ def import_events(file: UploadFile = File(...), db: Session = Depends(get_db)):
     try:
         contents = file.file.read().decode("utf-8")
         reader = csv.DictReader(io.StringIO(contents))
+
         events = []
+        errors = []
+        row_number = 1
+
         for row in reader:
+            row_number += 1
             try:
                 validated = EventACL.transform(row)
+
+                if EventACL.is_duplicate(validated, db):
+                    errors.append({
+                        "row": row_number,
+                        "error": "Duplicate event: name, venue, and date already exist"
+                    })
+                    continue
+
                 event = Event(**validated.dict())
                 events.append(event)
             except ValueError as ve:
-                # Optional: collect and report errors per row
+                errors.append({"row": row_number, "error": str(ve)})
                 continue
-        db.bulk_save_objects(events)
-        db.commit()
-        return {"imported": len(events)}
+
+        if events:
+            db.bulk_save_objects(events)
+            db.commit()
+
+        return {"imported": len(events), "errors": errors}
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
