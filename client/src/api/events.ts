@@ -12,7 +12,7 @@ export type Event = {
 
 export type EventCreate = Omit<Event, 'id'>
 
-export const fetchEvents = () => axios.get<Event[]>(`${API_URL}/events/`)
+export const fetchEvents = () => axios.get<Event[]>(`${API_URL}events/`)
 
 export const createEvent = (data: EventCreate) => axios.post(`${API_URL}events/`, data)
 
@@ -20,7 +20,7 @@ export const importEvents = async (file: File) => {
 	try {
 		const formData = new FormData()
 		formData.append('file', file)
-		const response = await axios.post(`${API_URL}/events/import`, formData)
+		const response = await axios.post(`${API_URL}events/import`, formData)
 		return response.data
 	} catch (error) {
 		throw error;
