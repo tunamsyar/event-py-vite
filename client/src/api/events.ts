@@ -36,6 +36,7 @@ export async function fetchFilteredEvents(filters: {
   }
 
   console.log("Fetching events with filters:", params.toString());
+  console.log("API URL:", API_URL);
   const res = await fetch(`${API_URL}/events?${params.toString()}`);
 
   if (!res.ok) {
