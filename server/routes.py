@@ -11,7 +11,7 @@ event_router = APIRouter()
 
 @event_router.get("/", response_model=List[EventResponse])
 def list_events(db: Session = Depends(get_db)):
-    return db.query(Event).all()
+    return db.query(Event).order_by(desc(Event.date)).all()
 
 @event_router.post("/", response_model=EventResponse)
 def create_event(event: EventCreate, db: Session = Depends(get_db)):
