@@ -37,7 +37,9 @@ export async function fetchFilteredEvents(filters: {
 
   console.log("Fetching events with filters:", params.toString());
   console.log("API URL:", API_URL);
-  const res = await fetch(`${API_URL}/events?${params.toString()}`);
+  let reqURL = `${API_URL}/events?${params.toString()}`;
+  console.log("Request URL:", reqURL);
+  const res = await fetch(reqURL);
 
   if (!res.ok) {
     throw new Error("Failed to fetch events")
