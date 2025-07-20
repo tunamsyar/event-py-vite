@@ -68,3 +68,19 @@ export const importEvents = async (file: File) => {
     }
 	}
 }
+
+export const generateQr = async (data: string): Promise<Blob> => {
+  try {
+    const response = await axios.get(`${API_URL}/events/generate_qr`, {
+      params: { data },
+      responseType: 'blob'
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to generate QR code');
+  }
+};
+
+export const generateQrUrl = (data: string) => {
+  return `${API_URL}/events/generate_qr?data=${data}`;
+};

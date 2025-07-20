@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import './table.css'
+import React, { useState } from "react";
+import "./table.css";
 
 export type ColumnDef<T> = {
   header: string;
-  accessor: keyof T;
+  accessor?: keyof T;
   sortable?: boolean;
+  render?: (row: T) => React.ReactNode;
 };
 
 type Props<T> = {
@@ -15,8 +16,8 @@ type Props<T> = {
 export function Table<T>({ data, columns }: Props<T>) {
   const [sortConfig, setSortConfig] = useState<{
     key: keyof T | null;
-    direction: 'asc' | 'desc';
-  }>({ key: null, direction: 'asc' });
+    direction: "asc" | "desc";
+  }>({ key: null, direction: "asc" });
 
   const sortedData = React.useMemo(() => {
     if (!sortConfig.key) return data;
@@ -25,14 +26,16 @@ export function Table<T>({ data, columns }: Props<T>) {
       const aValue = a[sortConfig.key!];
       const bValue = b[sortConfig.key!];
 
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sortConfig.direction === 'asc'
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortConfig.direction === "asc"
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
 
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
+      if (typeof aValue === "number" && typeof bValue === "number") {
+        return sortConfig.direction === "asc"
+          ? aValue - bValue
+          : bValue - aValue;
       }
 
       return 0;
@@ -44,10 +47,10 @@ export function Table<T>({ data, columns }: Props<T>) {
       if (prev.key === key) {
         return {
           key,
-          direction: prev.direction === 'asc' ? 'desc' : 'asc',
+          direction: prev.direction === "asc" ? "desc" : "asc",
         };
       }
-      return { key, direction: 'asc' };
+      return { key, direction: "asc" };
     });
   };
 
@@ -57,24 +60,31 @@ export function Table<T>({ data, columns }: Props<T>) {
         <tr>
           {columns.map((col) => (
             <th
-              key={String(col.accessor)}
+              key={String(col.accessor ?? col.header)}
               className="p-2 border-b bg-gray-100 cursor-pointer"
-              onClick={() => col.sortable && toggleSort(col.accessor)}
+              onClick={() =>
+                col.sortable && col.accessor && toggleSort(col.accessor)
+              }
             >
               {col.header}
               {sortConfig.key === col.accessor && (
-                <span>{sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}</span>
+                <span>{sortConfig.direction === "asc" ? " ↑" : " ↓"}</span>
               )}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {Array.isArray(sortedData) && sortedData.map((row, i) => (
+        {sortedData.map((row, i) => (
           <tr key={i} className="hover:bg-gray-50">
             {columns.map((col) => (
-              <td key={String(col.accessor)} className="p-2 border-b">
-                {String(row[col.accessor] ?? '')}
+              <td
+                key={String(col.accessor ?? col.header)}
+                className="p-2 border-b"
+              >
+                {col.render
+                  ? col.render(row)
+                  : String(row[col.accessor!] ?? "")}
               </td>
             ))}
           </tr>

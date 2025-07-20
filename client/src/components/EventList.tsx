@@ -3,6 +3,7 @@ import { fetchEvents } from '../api/events'
 import type { Event } from '../api/events'
 import { Table } from './Table'
 import EventFilters from "./EventFilters";
+import QrGenerator from './QrGenerator';
 
 export default function EventList() {
   const [events, setEvents] = useState<Event[]>([])
@@ -26,6 +27,15 @@ export default function EventList() {
           { header: "URL", accessor: "url", sortable: true },
           { header: "Type", accessor: "type", sortable: true },
           { header: "Status", accessor: "status", sortable: true },
+          {
+            header: "QR",
+            render: (row) => (
+              <QrGenerator
+                data={{ url: row.url || "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }}
+                label="Show Event QR"
+              />
+            ),
+          },
         ]}
       />
     </div>
