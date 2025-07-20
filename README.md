@@ -5,6 +5,10 @@ This is a full-stack Event Management Web App built with React (TypeScript) on t
 🔧 Key Features
 ✅ Event Creation: Users can submit new events via a dynamic form with validation and error handling.
 
+✅ Event CSV Upload: Users can upload CSV to bulk import event data into db.
+
+✅ QR Generation: Users can generate a QR Code that will lead to url of the event.
+
 🔍 Filter/Search Events: Filter events by name, location, and date using URL query parameters.
 
 📅 Date Handling: Uses datetime-local inputs and proper parsing in both frontend and backend.
