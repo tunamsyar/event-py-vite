@@ -1,1 +1,4 @@
 server/__pycache__
+server/alembic/__pycache__
+server/alembic/versions/__pycache__
+server/.env

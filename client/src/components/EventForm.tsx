@@ -8,6 +8,9 @@ export default function EventForm() {
     contact: "",
     venue: "",
     date: "",
+    url: "",
+    type: "",
+    status: "",
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -22,7 +25,10 @@ export default function EventForm() {
     try {
       await createEvent(form);
       setSuccess(true);
-      setForm({ name: "", contact: "", venue: "", date: "" }); // Reset form
+      setForm({ name: "", contact: "", venue: "", date: "", url: "", type: "", status: "" }); // Reset form
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } catch (err: any) {
       const message =
         err?.response?.data?.detail ||
@@ -36,7 +42,7 @@ export default function EventForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-2">
       <h2 className="text-xl font-bold">Add Event</h2>
-      {["name", "contact", "venue", "date"].map((key) => (
+      {["name", "contact", "venue", "date", "url", "type", "status"].map((key) => (
         <input
           key={key}
           type={key === "date" ? "datetime-local" : "text"}

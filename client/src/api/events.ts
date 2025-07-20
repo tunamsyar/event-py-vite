@@ -10,6 +10,9 @@ export type Event = {
 	contact: string
 	venue: string
 	date: string
+	url: string
+	type: string
+	status: string
 }
 
 export type EventCreate = Omit<Event, 'id'>

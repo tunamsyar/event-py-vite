@@ -23,6 +23,9 @@ export default function EventList() {
           { header: "Venue", accessor: "venue", sortable: true },
           { header: "Date", accessor: "date", sortable: true },
           { header: "Contact", accessor: "contact", sortable: true },
+          { header: "URL", accessor: "url", sortable: true },
+          { header: "Type", accessor: "type", sortable: true },
+          { header: "Status", accessor: "status", sortable: true },
         ]}
       />
     </div>

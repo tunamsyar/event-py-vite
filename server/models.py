@@ -11,3 +11,6 @@ class Event(Base):
     contact = Column(String, nullable=False)
     venue = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
+    url = Column(String, nullable=True)
+    type = Column(String, nullable=True)
+    status = Column(String, nullable=True)

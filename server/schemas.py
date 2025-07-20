@@ -8,6 +8,9 @@ class EventBase(BaseModel):
     contact: str
     venue: str
     date: datetime
+    url: Optional[str] = None
+    type: Optional[str] = None
+    status: Optional[str] = None
 
 class EventCreate(EventBase):
     pass

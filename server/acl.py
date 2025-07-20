@@ -36,6 +36,9 @@ class EventACL:
             contact=data["contact"],
             venue=data["venue"],
             date=data["date"],
+            url=data["url"],
+            type=data["type"],
+            status=data["status"]
         )
 
     @staticmethod
