@@ -8,6 +8,7 @@ from models import Event
 from schemas import EventCreate, EventResponse
 from acl import EventACL
 from typing import List
+from utils.qr_service import generate_qr_code
 
 event_router = APIRouter()
 
@@ -82,3 +83,7 @@ def import_events(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@event_router.get("/generate_qr")
+def get_qr(data: str = Query(..., description="Data to encode into QR")):
+    return generate_qr_code(data)

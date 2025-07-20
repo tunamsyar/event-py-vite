@@ -1,8 +1,9 @@
 alembic
 fastapi
-uvicorn
 psycopg2-binary
-sqlalchemy
 pydantic
 python-multipart
 python-dotenv
+qrcode[pil]
+sqlalchemy
+uvicorn

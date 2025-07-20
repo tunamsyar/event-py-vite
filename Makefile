@@ -4,7 +4,7 @@ DB=postgres
 
 # Docker Compose Commands
 up:
-	docker compose up -d
+	docker compose up
 
 down:
 	docker compose down
