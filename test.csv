@@ -1,3 +1,3 @@
-name,contact,venue,date
-tetst, 123123, test,23/12/2025
-tetst,,test2,
+name,contact,venue,date,type,url,status
+conf,123123,venue1,23/12/2025,conference,https://example.com,upcoming
+ws,,venue2,22/12/2025,workshop,https://google.com,completed

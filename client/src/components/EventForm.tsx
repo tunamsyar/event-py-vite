@@ -42,7 +42,7 @@ export default function EventForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-2">
       <h2 className="text-xl font-bold">Add Event</h2>
-      {["name", "contact", "venue", "date", "url", "type", "status"].map((key) => (
+      {["name", "contact", "venue", "url", "type", "status", "date"].map((key) => (
         <input
           key={key}
           type={key === "date" ? "datetime-local" : "text"}
